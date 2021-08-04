@@ -18,5 +18,11 @@ pipeline {
       }
     }
 
+    stage('Test the App') {
+      steps {
+        sh 'mvn test'
+      }
+    }
+
   }
 }
