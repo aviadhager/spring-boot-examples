@@ -7,8 +7,19 @@ pipeline {
   }
   stages {
     stage('CheckOut') {
-      steps {
-        git(url: 'https://github.com/aviadhager/spring-boot-examples.git', branch: 'aviad_sol', credentialsId: 'github')
+      parallel {
+        stage('CheckOut') {
+          steps {
+            git(url: 'https://github.com/aviadhager/spring-boot-examples.git', branch: 'aviad_sol', credentialsId: 'github')
+          }
+        }
+
+        stage('NotifySlack') {
+          steps {
+            slackSend(attachments: '#ariel_aviad', blocks: '#ariel_aviad', botUser: true, channel: '#ariel_aviad', color: '#3EA652', message: 'Test for notify')
+          }
+        }
+
       }
     }
 
@@ -39,7 +50,7 @@ pipeline {
 
     stage('Notify Slack') {
       steps {
-        slackSend(color: '#3EA652', message: 'Success: Job \'${env.JOB_NAME} [${env.BUILD_NUMBER}]\' (${env.BUILD_URL})', botUser: true, channel: '#ariel_aviad')
+        slackSend(color: '#3EA652', message: 'Success: Job \'${env.JOB_NAME} [${env.BUILD_NUMBER}]\' (${env.BUILD_URL})', botUser: true, channel: '#ariel_aviad', attachments: '#ariel_aviad', blocks: '#ariel_aviad')
       }
     }
 
