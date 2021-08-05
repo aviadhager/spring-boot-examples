@@ -30,5 +30,12 @@ pipeline {
       }
     }
 
+    stage('Clean Package') {
+      steps {
+        sh 'cd spring-boot-package-war && mvn clean package'
+        archiveArtifacts(artifacts: 'spring-boot-package-war/target/*.war', onlyIfSuccessful: true)
+      }
+    }
+
   }
 }
