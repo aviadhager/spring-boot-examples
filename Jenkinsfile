@@ -37,5 +37,11 @@ pipeline {
       }
     }
 
+    stage('Notify Slack') {
+      steps {
+        slackSend(color: '#3EA652', message: 'Success: Job \'${env.JOB_NAME} [${env.BUILD_NUMBER}]\' (${env.BUILD_URL})', botUser: true, channel: '#ariel_aviad')
+      }
+    }
+
   }
 }
