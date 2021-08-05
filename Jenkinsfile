@@ -24,5 +24,11 @@ pipeline {
       }
     }
 
+    stage('Change Version') {
+      steps {
+        sh 'cd spring-boot-package-war && mvn versions:set versions:commit -DnewVersion="0.0.$BUILD_NUMBER"'
+      }
+    }
+
   }
 }
