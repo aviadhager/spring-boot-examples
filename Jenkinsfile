@@ -16,7 +16,7 @@ pipeline {
 
         stage('NotifySlack') {
           steps {
-            slackSend(attachments: '#ariel_aviad', blocks: '#ariel_aviad', botUser: true, channel: '#ariel_aviad', color: '#3EA652', message: 'Test for notify')
+            slackSend(attachments: '#ariel_aviad', blocks: '#ariel_aviad', botUser: true, channel: '#ariel_aviad', color: '#3EA652', message: 'Test for notify', tokenCredentialId: 'SlackToken', baseUrl: 'intcollege-workspace.slack.com')
           }
         }
 
