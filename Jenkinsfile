@@ -39,9 +39,7 @@ pipeline {
     
         stage('Notify Slack') {
       steps {
-        //slackSend (color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        slackSend channel: 'ariel_aviad', message: 'pipeline End'
-
+        slackSend (color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")       
       }
     }
     
