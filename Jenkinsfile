@@ -36,7 +36,10 @@ pipeline {
         sh '''git config --global user.name aviadhager
 git config --global user.email "aviadhager@gmail.com"
 git add spring-boot-package-war/pom.xml 
-git commit -m "Commit the new version number to the .pom file" spring-boot-package-war//pom.xml'''
+git commit -m "Commit the new version number to the .pom file" spring-boot-package-war//pom.xml\\
+withCredentials([usernamePassword(credentialsId: \'githubnew\', passwordVariable: \'arielmaor054\', usernameVariable: \'arielmaor22\')]) {
+                        sh(\'git push https://arielmaor22:arielmaor054@github.com/arielmaor22/spring-boot-examples.git\')
+                    }'''
       }
     }
 
