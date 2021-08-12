@@ -27,15 +27,16 @@ pipeline {
     stage('Change Version') {
       steps {
         sh '''cd spring-boot-package-war && mvn versions:set versions:commit -DnewVersion="0.0.1.$BUILD_NUMBER"
-git config --global user.name aviadhager
-git config --global user.email "aviadhager@gmail.com"
-git add /pom.xml
-git commit -m "Commit the new version number to the .pom file" /pom.xml
+
 
 
 
 
  '''
+        sh '''git config --global user.name aviadhager
+git config --global user.email "aviadhager@gmail.com"
+git add spring-boot-package-war/pom.xml 
+git commit -m "Commit the new version number to the .pom file" spring-boot-package-war//pom.xml'''
       }
     }
 
