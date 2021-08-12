@@ -26,7 +26,16 @@ pipeline {
 
     stage('Change Version') {
       steps {
-        sh 'cd spring-boot-package-war && mvn versions:set versions:commit -DnewVersion="0.0.$BUILD_NUMBER"'
+        sh '''cd spring-boot-package-war && mvn versions:set versions:commit -DnewVersion="0.0.1.$BUILD_NUMBER"
+git config --global user.name aviadhager
+git config --global user.email "aviadhager@gmail.com"
+git add spring-boot-package-war/pom.xml
+git commit -m "Commit the new version number to the .pom file" spring-boot-package-war/pom.xml
+
+
+
+
+ '''
       }
     }
 
@@ -36,14 +45,12 @@ pipeline {
         archiveArtifacts(artifacts: 'spring-boot-package-war/target/*.war', onlyIfSuccessful: true)
       }
     }
-    
-        stage('Notify Slack') {
+
+    stage('Notify Slack') {
       steps {
-        slackSend (color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")       
+        slackSend(color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
       }
     }
-    
-
 
   }
 }
