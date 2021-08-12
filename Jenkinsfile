@@ -38,24 +38,21 @@ git config --global user.email "aviadhager@gmail.com"
 git add spring-boot-package-war/pom.xml 
 git commit -m "Commit the new version number to the .pom file" spring-boot-package-war/pom.xml
 git push https://aviadhager:tchgsar3@github.com/aviadhager/spring-boot-examples.git'''
-        sh '''withCredentials([usernamePassword(credentialsId: \'github\', passwordVariable: \'tchgsar3\', usernameVariable: \'aviadhager\')]) {
-                        sh(\'git push https://github.com/aviadhager/spring-boot-examples.git\')
-                    }'''
-        }
       }
-
-      stage('Clean Package') {
-        steps {
-          sh 'cd spring-boot-package-war && mvn clean package'
-          archiveArtifacts(artifacts: 'spring-boot-package-war/target/*.war', onlyIfSuccessful: true)
-        }
-      }
-
-      stage('Notify Slack') {
-        steps {
-          slackSend(color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-        }
-      }
-
     }
+
+    stage('Clean Package') {
+      steps {
+        sh 'cd spring-boot-package-war && mvn clean package'
+        archiveArtifacts(artifacts: 'spring-boot-package-war/target/*.war', onlyIfSuccessful: true)
+      }
+    }
+
+    stage('Notify Slack') {
+      steps {
+        slackSend(color: '#3EA652', message: "Success: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+      }
+    }
+
   }
+}
